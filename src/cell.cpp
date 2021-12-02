@@ -576,7 +576,7 @@ void Cell::get_labels(bool apply_repetitions, int64_t depth, bool filter, Tag ta
     }
 }
 
-void Cell::flatten(bool apply_repetitions, Array<Reference*>& result) {
+void Cell::flatten(bool apply_repetitions, bool skip_labels, Array<Reference*>& result) {
     uint64_t i = 0;
     while (i < reference_array.count) {
         Reference* ref = reference_array[i];
@@ -586,7 +586,7 @@ void Cell::flatten(bool apply_repetitions, Array<Reference*>& result) {
             ref->polygons(apply_repetitions, false, -1, false, 0, polygon_array);
             ref->flexpaths(apply_repetitions, -1, false, 0, flexpath_array);
             ref->robustpaths(apply_repetitions, -1, false, 0, robustpath_array);
-            ref->labels(apply_repetitions, -1, false, 0, label_array);
+            if (!skip_labels) ref->labels(apply_repetitions, -1, false, 0, label_array);
         } else {
             ++i;
         }

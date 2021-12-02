@@ -2406,6 +2406,8 @@ Return a copy of all labels in the cell.
 Args:
     apply_repetitions: Define whether repetitions should be applied in
       the created labels.
+    skip_labels: Define whether labels from the references should be added
+      to the top-level.
     depth: If non negative, indicates the number of reference levels
       processed recursively.  A value of 0 will result in no references
       being visited.  A value of ``None`` (the default) or a negative int
@@ -2420,7 +2422,7 @@ Notes:
     for the filtering to be executed.  If either one is ``None`` they
     are both ignored.)!");
 
-PyDoc_STRVAR(cell_object_flatten_doc, R"!(flatten(apply_repetitions=True) -> self
+PyDoc_STRVAR(cell_object_flatten_doc, R"!(flatten(apply_repetitions=True, skip_labels=False) -> self
 
 Transform all references into polygons, paths and labels.
 

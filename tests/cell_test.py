@@ -196,6 +196,18 @@ def test_flatten(tree):
     assert len(c3.labels) == 12
 
 
+def test_flatten_skip_labels(tree):
+    c3, c2, c1 = tree
+    c3.add(gdstk.Label("label3", (3, 1), layer=13))
+    c3.flatten(skip_labels=True)
+    polygons = c3.polygons
+    assert len(polygons) == 12
+    for i in range(12):
+        assert polygons[i].layer == 0 or polygons[i].layer == 1
+        assert polygons[i].layer == polygons[i].datatype
+    assert len(c3.labels) == 1
+
+
 def test_bb(tree):
     c3, c2, c1 = tree
     assert_close(c3.bounding_box(), ((0, 0), (8, 4)))

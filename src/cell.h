@@ -164,7 +164,7 @@ struct Cell {
     // inserting the elements from this cell's references directly into the
     // cell (with the corresponding transformations).  Removed references are
     // appended to removed_references.
-    void flatten(bool apply_repetitions, Array<Reference*>& removed_references);
+    void flatten(bool apply_repetitions, bool skip_labels, Array<Reference*>& removed_references);
 
     // These functions output the cell and its contents in the GDSII and SVG
     // formats.  They are not supposed to be called by the user.  Use

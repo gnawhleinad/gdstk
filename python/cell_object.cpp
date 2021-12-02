@@ -419,15 +419,16 @@ static PyObject* cell_object_get_labels(CellObject* self, PyObject* args, PyObje
 
 static PyObject* cell_object_flatten(CellObject* self, PyObject* args, PyObject* kwds) {
     int apply_repetitions = 1;
-    const char* keywords[] = {"apply_repetitions", NULL};
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|p:flatten", (char**)keywords,
-                                     &apply_repetitions))
+    int skip_labels = 0;
+    const char* keywords[] = {"apply_repetitions", "skip_labels", NULL};
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|pp:flatten", (char**)keywords,
+                                     &apply_repetitions, &skip_labels))
         return NULL;
 
     Cell* cell = self->cell;
 
     Array<Reference*> reference_array = {0};
-    cell->flatten(apply_repetitions > 0, reference_array);
+    cell->flatten(apply_repetitions > 0, skip_labels > 0, reference_array);
     Reference** ref = reference_array.items;
     for (uint64_t i = reference_array.count; i > 0; i--, ref++) Py_XDECREF((*ref)->owner);
     reference_array.clear();
